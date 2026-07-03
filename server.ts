@@ -68,7 +68,8 @@ app.get("/api/waitlist", async (req, res) => {
   const supabase = getSupabaseConfig();
   
   if (!supabase) {
-    console.log("Supabase not configured. Returning local waitlist size:", localList.length);
+    // Return local list sorted by created_at ascending
+    localList.sort((a: any, b: any) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
     return res.json(localList);
   }
   
@@ -84,34 +85,40 @@ app.get("/api/waitlist", async (req, res) => {
     });
     
     if (response.ok) {
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        console.log(`Successfully fetched ${data.length} records from Supabase.`);
+      const supabaseData = await response.json();
+      if (Array.isArray(supabaseData)) {
+        console.log(`Successfully fetched ${supabaseData.length} records from Supabase.`);
         
-        // Sync to local database as backup
-        const merged = [...localList];
+        // Merge local database with Supabase data, avoiding duplicates
+        const mergedList = [...localList];
         let changed = false;
         
-        data.forEach((item: any) => {
-          const exists = merged.some((m: any) => m.email.toLowerCase() === item.email.toLowerCase());
-          if (!exists) {
-            merged.push({
-              email: item.email,
-              whatsapp: item.whatsapp,
-              country_code: item.country_code || "",
-              country_name: item.country_name || "",
-              source: item.source || "general",
-              created_at: item.created_at || new Date().toISOString()
-            });
-            changed = true;
+        supabaseData.forEach((item: any) => {
+          if (item && item.email) {
+            const exists = mergedList.some(
+              (m: any) => m.email.toLowerCase() === item.email.toLowerCase()
+            );
+            if (!exists) {
+              mergedList.push({
+                email: item.email,
+                whatsapp: item.whatsapp || "",
+                country_code: item.country_code || "",
+                country_name: item.country_name || "",
+                source: item.source || "general",
+                created_at: item.created_at || new Date().toISOString()
+              });
+              changed = true;
+            }
           }
         });
         
         if (changed) {
-          writeLocalDb(merged);
+          writeLocalDb(mergedList);
         }
         
-        return res.json(data);
+        // Sort merged list by created_at ascending so positions/ranks are stable!
+        mergedList.sort((a: any, b: any) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+        return res.json(mergedList);
       }
     } else {
       console.warn("Supabase returned error status:", response.status);
@@ -120,6 +127,8 @@ app.get("/api/waitlist", async (req, res) => {
     console.error("Error connecting to Supabase, falling back to local database:", err);
   }
   
+  // Default fallback: return local list sorted by created_at
+  localList.sort((a: any, b: any) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
   res.json(localList);
 });
 
@@ -153,55 +162,34 @@ app.post("/api/waitlist", async (req, res) => {
     console.log(`Email ${email} is already in local waitlist.`);
   }
   
-  // Save to Supabase
+  // Save to Supabase (non-blocking)
   const supabase = getSupabaseConfig();
   if (supabase) {
     try {
-      console.log(`Checking if email ${email} exists in Supabase...`);
-      const checkResp = await fetch(`${supabase.endpoint}?email=eq.${encodeURIComponent(email.trim())}`, {
-        method: "GET",
+      console.log(`Inserting email ${email} into Supabase...`);
+      const insertResp = await fetch(supabase.endpoint, {
+        method: "POST",
         headers: {
+          "Content-Type": "application/json",
           "apikey": supabase.anonKey,
           "Authorization": `Bearer ${supabase.anonKey}`,
-          "Accept": "application/json"
-        }
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify(newEntry)
       });
       
-      let alreadyInSupabase = false;
-      if (checkResp.ok) {
-        const checkData = await checkResp.json();
-        if (Array.isArray(checkData) && checkData.length > 0) {
-          alreadyInSupabase = true;
-          console.log(`Email ${email} already exists in Supabase.`);
-        }
-      }
-      
-      if (!alreadyInSupabase) {
-        console.log(`Inserting email ${email} into Supabase...`);
-        const insertResp = await fetch(supabase.endpoint, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "apikey": supabase.anonKey,
-            "Authorization": `Bearer ${supabase.anonKey}`,
-            "Prefer": "return=representation"
-          },
-          body: JSON.stringify(newEntry)
-        });
-        
-        if (insertResp.ok) {
-          console.log(`Successfully saved email ${email} to Supabase.`);
-        } else {
-          console.warn("Failed to insert into Supabase:", await insertResp.text());
-        }
+      if (insertResp.ok) {
+        console.log(`Successfully saved email ${email} to Supabase.`);
+      } else {
+        console.warn("Failed to insert into Supabase (probably RLS policy, saved locally):", await insertResp.text());
       }
     } catch (err) {
       console.error("Error interacting with Supabase on insert:", err);
     }
   }
 
-  // Retrieve the latest full list to return
-  let latestList = list;
+  // Retrieve latest combined list to return
+  let latestList = [...list];
   if (supabase) {
     try {
       const response = await fetch(`${supabase.endpoint}?order=created_at.asc`, {
@@ -213,15 +201,34 @@ app.post("/api/waitlist", async (req, res) => {
         }
       });
       if (response.ok) {
-        const data = await response.json();
-        if (Array.isArray(data) && data.length > 0) {
-          latestList = data;
+        const supabaseData = await response.json();
+        if (Array.isArray(supabaseData)) {
+          supabaseData.forEach((item: any) => {
+            if (item && item.email) {
+              const exists = latestList.some(
+                (m: any) => m.email.toLowerCase() === item.email.toLowerCase()
+              );
+              if (!exists) {
+                latestList.push({
+                  email: item.email,
+                  whatsapp: item.whatsapp || "",
+                  country_code: item.country_code || "",
+                  country_name: item.country_name || "",
+                  source: item.source || "general",
+                  created_at: item.created_at || new Date().toISOString()
+                });
+              }
+            }
+          });
         }
       }
     } catch (err) {
       console.error("Error retrieving latest list from Supabase on post:", err);
     }
   }
+  
+  // Sort by created_at ascending so sequence is correct
+  latestList.sort((a: any, b: any) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
   
   res.json({ success: true, entry: newEntry, list: latestList });
 });
