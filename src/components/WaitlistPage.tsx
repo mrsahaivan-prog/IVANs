@@ -88,44 +88,7 @@ async function fetchRealWaitlist(): Promise<any[]> {
   } catch (err) {
     console.warn("Error fetching from local waitlist API:", err);
   }
-
-  try {
-    const metaEnv = (import.meta as any).env || {};
-    const supabaseUrl = metaEnv.VITE_SUPABASE_URL;
-    const supabaseAnonKey = metaEnv.VITE_SUPABASE_ANON_KEY;
-
-    if (!supabaseUrl || !supabaseAnonKey) {
-      return [];
-    }
-
-    let cleanUrl = supabaseUrl.trim();
-    if (cleanUrl.endsWith('/')) {
-      cleanUrl = cleanUrl.slice(0, -1);
-    }
-    
-    const apiEndpoint = cleanUrl.includes('/rest/v1')
-      ? `${cleanUrl}/waitlist?order=created_at.asc`
-      : `${cleanUrl}/rest/v1/waitlist?order=created_at.asc`;
-
-    const response = await fetch(apiEndpoint, {
-      method: 'GET',
-      headers: {
-        'apikey': supabaseAnonKey,
-        'Authorization': `Bearer ${supabaseAnonKey}`,
-        'Accept': 'application/json'
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error ${response.status}`);
-    }
-
-    const data = await response.json();
-    return Array.isArray(data) ? data : [];
-  } catch (err) {
-    console.warn("Error fetching waitlist from Supabase:", err);
-    return [];
-  }
+  return [];
 }
 
 interface WaitlistPageProps {
@@ -149,6 +112,10 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
   const [totalCount, setTotalCount] = useState(() => {
     const saved = localStorage.getItem('mz_waitlist_total_count');
     return saved ? parseInt(saved, 10) : 300;
+  });
+  const [userRank, setUserRank] = useState<number>(() => {
+    const saved = localStorage.getItem('mz_user_rank');
+    return saved ? parseInt(saved, 10) : 301;
   });
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -263,6 +230,7 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
 
         if (isUserMatch && active) {
           localStorage.setItem('mz_user_rank', String(rank));
+          setUserRank(rank);
         }
 
         // Anonymize email: e.g., ab***@gmail.com
@@ -318,10 +286,11 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
           anonEmail = parts[0].slice(0, 2) + "***@" + parts[1];
         }
 
-        const userRank = parseInt(localStorage.getItem('mz_user_rank') || String(301 + mappedRealMembers.length), 10);
+        const calculatedUserRank = parseInt(localStorage.getItem('mz_user_rank') || String(301 + mappedRealMembers.length), 10);
+        setUserRank(calculatedUserRank);
         
         combined.push({
-          rank: userRank,
+          rank: calculatedUserRank,
           email: anonEmail,
           phone: userWhatsapp ? `${userWhatsapp.slice(0, 4)} •••••••${userWhatsapp.slice(-2)}` : `${selectedCountry.code} •••••••99`,
           country: matchedCountry.name,
@@ -399,38 +368,6 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
     } catch (err) {
       console.warn("Error posting to local waitlist API:", err);
     }
-
-    try {
-      // Secondary: Check if Supabase env vars are set and submit to Supabase
-      const metaEnv = (import.meta as any).env || {};
-      const supabaseUrl = metaEnv.VITE_SUPABASE_URL;
-      const supabaseAnonKey = metaEnv.VITE_SUPABASE_ANON_KEY;
-
-      if (supabaseUrl && supabaseAnonKey) {
-        let cleanUrl = supabaseUrl.trim();
-        if (cleanUrl.endsWith('/')) {
-          cleanUrl = cleanUrl.slice(0, -1);
-        }
-        
-        const apiEndpoint = cleanUrl.includes('/rest/v1')
-          ? `${cleanUrl}/waitlist`
-          : `${cleanUrl}/rest/v1/waitlist`;
-
-        // Real Supabase insert using standard REST API
-        await fetch(apiEndpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': supabaseAnonKey,
-            'Authorization': `Bearer ${supabaseAnonKey}`,
-            'Prefer': 'return=minimal'
-          },
-          body: JSON.stringify(submissionData)
-        });
-      }
-    } catch (err) {
-      console.warn("Supabase saving skipped:", err);
-    }
     
     localStorage.setItem('mz_user_registered', 'true');
     localStorage.setItem('mz_user_email', email.trim());
@@ -441,6 +378,7 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
     localStorage.setItem('mz_waitlist_total_count', String(nextRank));
 
     setTotalCount(nextRank);
+    setUserRank(nextRank);
     setIsSubmitted(true);
     setIsSubmitting(false);
 
@@ -691,7 +629,7 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
                   <div className="text-right">
                     <span className="text-[9px] font-mono text-gray-400 block uppercase tracking-wider">Votre Rang</span>
                     <span className="text-base font-mono font-black text-cyan-400">
-                      #{localStorage.getItem('mz_user_rank') || '301'}
+                      #{userRank}
                     </span>
                   </div>
                   <div className="h-8 w-px bg-white/10" />
@@ -714,7 +652,7 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
                         Votre Position Actuelle
                       </span>
                       <span className="text-3xl font-mono font-black text-white block mt-1">
-                        #{localStorage.getItem('mz_user_rank') || '301'}
+                        #{userRank}
                       </span>
                     </div>
 
@@ -722,7 +660,7 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
                       <div className="flex items-start gap-2.5">
                         <span className="text-emerald-400 text-sm flex-shrink-0 mt-0.5">✅</span>
                         <p>
-                          Vous êtes la <strong className="text-cyan-400 font-extrabold">n°{localStorage.getItem('mz_user_rank') || '301'}</strong> à avoir rejoint la liste d'attente MZ+.
+                          Vous êtes la <strong className="text-cyan-400 font-extrabold">n°{userRank}</strong> à avoir rejoint la liste d'attente MZ+.
                         </p>
                       </div>
 
@@ -759,6 +697,7 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
                           localStorage.removeItem('mz_user_country');
                           localStorage.removeItem('mz_user_flag');
                           localStorage.removeItem('mz_user_rank');
+                          setUserRank(301);
                           setIsSubmitted(false);
                           setShowList(false);
                         }
