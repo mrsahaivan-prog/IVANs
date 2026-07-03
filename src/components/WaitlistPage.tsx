@@ -78,6 +78,18 @@ function getRelativeTime(isoString: string): string {
 
 async function fetchRealWaitlist(): Promise<any[]> {
   try {
+    const response = await fetch('/api/waitlist');
+    if (response.ok) {
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        return data;
+      }
+    }
+  } catch (err) {
+    console.warn("Error fetching from local waitlist API:", err);
+  }
+
+  try {
     const metaEnv = (import.meta as any).env || {};
     const supabaseUrl = metaEnv.VITE_SUPABASE_URL;
     const supabaseAnonKey = metaEnv.VITE_SUPABASE_ANON_KEY;
@@ -362,8 +374,34 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
       created_at: new Date().toISOString()
     };
 
+    let nextRank = Math.max(totalCount + 1, 301);
+
     try {
-      // Check if Supabase env vars are set
+      // Primary: Register on local server API
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(submissionData)
+      });
+      if (response.ok) {
+        const resData = await response.json();
+        if (resData.list && Array.isArray(resData.list)) {
+          const index = resData.list.findIndex((item: any) => item.email.toLowerCase() === email.trim().toLowerCase());
+          if (index !== -1) {
+            nextRank = 301 + index;
+          } else {
+            nextRank = 300 + resData.list.length;
+          }
+        }
+      }
+    } catch (err) {
+      console.warn("Error posting to local waitlist API:", err);
+    }
+
+    try {
+      // Secondary: Check if Supabase env vars are set and submit to Supabase
       const metaEnv = (import.meta as any).env || {};
       const supabaseUrl = metaEnv.VITE_SUPABASE_URL;
       const supabaseAnonKey = metaEnv.VITE_SUPABASE_ANON_KEY;
@@ -391,11 +429,8 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
         });
       }
     } catch (err) {
-      console.warn("Supabase saving skipped, using robust localStorage backend:", err);
+      console.warn("Supabase saving skipped:", err);
     }
-
-    // Set user local state as member #301 (or next count if they loaded something else)
-    const nextRank = Math.max(totalCount + 1, 301);
     
     localStorage.setItem('mz_user_registered', 'true');
     localStorage.setItem('mz_user_email', email.trim());
