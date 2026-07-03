@@ -16,35 +16,35 @@ interface Country {
 
 const COUNTRIES: Country[] = [
   // West & Central Africa (Primary Market)
-  { name: "Côte d'Ivoire", code: "+225", flag: "🇨🇮", launchHour: "19h00 (Heure d'Abidjan)" },
-  { name: "Sénégal", code: "+221", flag: "🇸🇳", launchHour: "19h00 (Heure de Dakar)" },
-  { name: "Cameroun", code: "+237", flag: "🇨🇲", launchHour: "20h00 (Heure de Douala)" },
-  { name: "Mali", code: "+223", flag: "🇲🇱", launchHour: "19h00 (Heure de Bamako)" },
-  { name: "Burkina Faso", code: "+226", flag: "🇧🇫", launchHour: "19h00 (Heure de Ouagadougou)" },
-  { name: "Bénin", code: "+229", flag: "🇧🇯", launchHour: "20h00 (Heure de Cotonou)" },
-  { name: "Togo", code: "+228", flag: "🇹🇬", launchHour: "19h00 (Heure de Lomé)" },
-  { name: "Guinée", code: "+224", flag: "🇬🇳", launchHour: "19h00 (Heure de Conakry)" },
-  { name: "Gabon", code: "+241", flag: "🇬🇦", launchHour: "20h00 (Heure de Libreville)" },
-  { name: "Rép. Dém. du Congo", code: "+243", flag: "🇨🇩", launchHour: "20h00 (Heure de Kinshasa)" },
-  { name: "Congo-Brazzaville", code: "+242", flag: "🇨🇬", launchHour: "20h00 (Heure de Brazzaville)" },
-  { name: "Niger", code: "+227", flag: "🇳🇪", launchHour: "20h00 (Heure de Niamey)" },
-  { name: "Tchad", code: "+235", flag: "🇹🇩", launchHour: "20h00 (Heure de N'Djamena)" },
-  { name: "Centrafrique", code: "+236", flag: "🇨🇫", launchHour: "20h00 (Heure de Bangui)" },
-  { name: "Guinée Équatoriale", code: "+240", flag: "🇬🇶", launchHour: "20h00 (Heure de Malabo)" },
-  { name: "France", code: "+33", flag: "🇫🇷", launchHour: "21h00 (Heure de Paris)" },
-  { name: "Belgique", code: "+32", flag: "🇧🇪", launchHour: "21h00 (Heure de Bruxelles)" },
-  { name: "Canada", code: "+1", flag: "🇨🇦", launchHour: "15h00 (Heure de Montréal)" },
-  { name: "Suisse", code: "+41", flag: "🇨🇭", launchHour: "21h00 (Heure de Zurich)" },
-  { name: "États-Unis", code: "+1", flag: "🇺🇸", launchHour: "15h00 (Heure de New York)" },
+  { name: "Côte d'Ivoire", code: "+225", flag: "🇨🇮", launchHour: "20h00 (Heure d'Abidjan)" },
+  { name: "Sénégal", code: "+221", flag: "🇸🇳", launchHour: "20h00 (Heure de Dakar)" },
+  { name: "Cameroun", code: "+237", flag: "🇨🇲", launchHour: "21h00 (Heure de Douala)" },
+  { name: "Mali", code: "+223", flag: "🇲🇱", launchHour: "20h00 (Heure de Bamako)" },
+  { name: "Burkina Faso", code: "+226", flag: "🇧🇫", launchHour: "20h00 (Heure de Ouagadougou)" },
+  { name: "Bénin", code: "+229", flag: "🇧🇯", launchHour: "21h00 (Heure de Cotonou)" },
+  { name: "Togo", code: "+228", flag: "🇹🇬", launchHour: "20h00 (Heure de Lomé)" },
+  { name: "Guinée", code: "+224", flag: "🇬🇳", launchHour: "20h00 (Heure de Conakry)" },
+  { name: "Gabon", code: "+241", flag: "🇬🇦", launchHour: "21h00 (Heure de Libreville)" },
+  { name: "Rép. Dém. du Congo", code: "+243", flag: "🇨🇩", launchHour: "21h00 (Heure de Kinshasa)" },
+  { name: "Congo-Brazzaville", code: "+242", flag: "🇨🇬", launchHour: "21h00 (Heure de Brazzaville)" },
+  { name: "Niger", code: "+227", flag: "🇳🇪", launchHour: "21h00 (Heure de Niamey)" },
+  { name: "Tchad", code: "+235", flag: "🇹🇩", launchHour: "21h00 (Heure de N'Djamena)" },
+  { name: "Centrafrique", code: "+236", flag: "🇨🇫", launchHour: "21h00 (Heure de Bangui)" },
+  { name: "Guinée Équatoriale", code: "+240", flag: "🇬🇶", launchHour: "21h00 (Heure de Malabo)" },
+  { name: "France", code: "+33", flag: "🇫🇷", launchHour: "22h00 (Heure de Paris)" },
+  { name: "Belgique", code: "+32", flag: "🇧🇪", launchHour: "22h00 (Heure de Bruxelles)" },
+  { name: "Canada", code: "+1", flag: "🇨🇦", launchHour: "16h00 (Heure de Montréal)" },
+  { name: "Suisse", code: "+41", flag: "🇨🇭", launchHour: "22h00 (Heure de Zurich)" },
+  { name: "États-Unis", code: "+1", flag: "🇺🇸", launchHour: "16h00 (Heure de New York)" },
 
   // Rest of Africa & World Alphabetical
-  { name: "Algérie", code: "+213", flag: "🇩🇿", launchHour: "20h00 (Heure d'Alger)" },
-  { name: "Allemagne", code: "+49", flag: "🇩🇪", launchHour: "21h00 (Heure de Berlin)" },
-  { name: "Maroc", code: "+212", flag: "🇲🇦", launchHour: "20h00 (Heure de Casablanca)" },
-  { name: "Tunisie", code: "+216", flag: "🇹🇳", launchHour: "20h00 (Heure de Tunis)" },
-  { name: "Royaume-Uni", code: "+44", flag: "🇬🇧", launchHour: "20h00 (Heure de Londres)" },
-  { name: "La Réunion", code: "+262", flag: "🇷🇪", launchHour: "23h00 (Heure de Saint-Denis)" },
-  { name: "Madagascar", code: "+261", flag: "🇲🇬", launchHour: "22h00 (Heure de Antananarivo)" }
+  { name: "Algérie", code: "+213", flag: "🇩🇿", launchHour: "21h00 (Heure d'Alger)" },
+  { name: "Allemagne", code: "+49", flag: "🇩🇪", launchHour: "22h00 (Heure de Berlin)" },
+  { name: "Maroc", code: "+212", flag: "🇲🇦", launchHour: "21h00 (Heure de Casablanca)" },
+  { name: "Tunisie", code: "+216", flag: "🇹🇳", launchHour: "21h00 (Heure de Tunis)" },
+  { name: "Royaume-Uni", code: "+44", flag: "🇬🇧", launchHour: "21h00 (Heure de Londres)" },
+  { name: "La Réunion", code: "+262", flag: "🇷🇪", launchHour: "00h00 (Heure de Saint-Denis, le 5 Juillet)" },
+  { name: "Madagascar", code: "+261", flag: "🇲🇬", launchHour: "23h00 (Heure de Antananarivo)" }
 ];
 
 interface WaitlistMember {
@@ -76,6 +76,58 @@ function getRelativeTime(isoString: string): string {
   }
 }
 
+const getSimulatedCount = (): number => {
+  const now = Date.now();
+  const startTime = new Date("2026-07-03T23:00:00Z").getTime();
+  const launchTime = new Date("2026-07-04T20:00:00Z").getTime();
+  
+  if (now <= startTime) {
+    return 200;
+  }
+  
+  if (now >= launchTime) {
+    // After launch, keep it stable around 1700 with a tiny live variation of +/- 2
+    const minSeed = Math.floor(now / 60000);
+    const postNoise = Math.floor((Math.sin(minSeed * 0.1) + 1) * 2); // 0 to 4
+    return 1700 + postNoise;
+  }
+  
+  const totalDuration = launchTime - startTime;
+  const elapsed = now - startTime;
+  const pct = elapsed / totalDuration; // between 0 and 1
+  
+  // 1. Base organic S-curve progression (starts slow, accelerates over time)
+  // Power curve pct^1.9 provides a gorgeous progressive acceleration!
+  const baseGrowth = 200 + 1500 * Math.pow(pct, 1.9);
+  
+  // 2. Diurnal cycle wave (lower registration at night, higher during lunch 12h-14h and evening 18h-22h UTC)
+  const date = new Date(now);
+  const utcHour = date.getUTCHours();
+  const utcMin = date.getUTCMinutes();
+  const timeOfDayDecimal = utcHour + utcMin / 60;
+  
+  // Double-peak human behavior: Lunch break (13:00) and evening peak (20:00 UTC)
+  const lunchPeak = Math.exp(-Math.pow(timeOfDayDecimal - 13, 2) / 6) * 12; // peak of +12
+  const eveningPeak = Math.exp(-Math.pow(timeOfDayDecimal - 20, 2) / 8) * 22; // peak of +22
+  const nightLow = Math.exp(-Math.pow(timeOfDayDecimal - 3, 2) / 8) * -15; // night drop
+  
+  // Overall diurnal adjustment that scales with progression (list size)
+  const diurnalOffset = (lunchPeak + eveningPeak + nightLow) * pct;
+  
+  // 3. Small pseudo-random organic variations from one hour to another (deterministic)
+  const hourId = Math.floor(elapsed / 3600000);
+  const hourNoise = Math.sin(hourId * 17.31 + 4.12) * 8 * pct; // up to +/-8 variation as we approach launch
+  
+  // 4. Micro-variations at the minute/second level so refresh shows it ticking live!
+  const liveNoise = Math.sin(now / 4000) * 1.5; // smooth wave of +/- 1.5 every 4s
+  
+  const rawVal = baseGrowth + diurnalOffset + hourNoise + liveNoise;
+  
+  // Clamp the result strictly: must start at 200 and must stay under 1800 before launch
+  const finalCount = Math.floor(rawVal);
+  return Math.max(200, Math.min(1799, finalCount));
+};
+
 async function fetchRealWaitlist(): Promise<any[]> {
   try {
     const response = await fetch('/api/waitlist');
@@ -91,6 +143,14 @@ async function fetchRealWaitlist(): Promise<any[]> {
   return [];
 }
 
+interface CountdownTime {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+  isCompleted: boolean;
+}
+
 interface WaitlistPageProps {
   onBack: () => void;
   source?: string;
@@ -102,21 +162,67 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
   const [selectedCountry, setSelectedCountry] = useState<Country>(COUNTRIES[0]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(() => {
-    return localStorage.getItem('mz_user_registered') === 'true';
+    return localStorage.getItem('mz_user_registered_v3') === 'true';
   });
   const [showList, setShowList] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   
-  // Base 300 members state
+  // Base members state
   const [members, setMembers] = useState<WaitlistMember[]>([]);
   const [totalCount, setTotalCount] = useState(() => {
-    const saved = localStorage.getItem('mz_waitlist_total_count');
-    return saved ? parseInt(saved, 10) : 300;
+    const saved = localStorage.getItem('mz_waitlist_total_count_v3');
+    return saved ? Math.min(1800, parseInt(saved, 10)) : getSimulatedCount();
   });
   const [userRank, setUserRank] = useState<number>(() => {
-    const saved = localStorage.getItem('mz_user_rank');
-    return saved ? parseInt(saved, 10) : 301;
+    const saved = localStorage.getItem('mz_user_rank_v3');
+    return saved ? parseInt(saved, 10) : getSimulatedCount() + 1;
   });
+
+  const [timeLeft, setTimeLeft] = useState<CountdownTime>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    isCompleted: false,
+  });
+
+  // Calculate local time remaining to Saturday, July 4th, 2026, at 20:00:00 GMT
+  useEffect(() => {
+    const targetDate = new Date(Date.UTC(2026, 6, 4, 20, 0, 0));
+    
+    const calculateTimeLeft = () => {
+      const difference = targetDate.getTime() - Date.now();
+      
+      if (difference <= 0) {
+        setTimeLeft({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+          isCompleted: true,
+        });
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((difference / 1000 / 60) % 60);
+      const seconds = Math.floor((difference / 1000) % 60);
+
+      setTimeLeft({
+        days,
+        hours,
+        minutes,
+        seconds,
+        isCompleted: false,
+      });
+    };
+
+    calculateTimeLeft();
+    const interval = setInterval(calculateTimeLeft, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -160,21 +266,33 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
     }
   }, []);
 
-  // Generate the 300 base members and append real ones from Supabase database
+  // Generate the simulated members and append real ones from local server
   useEffect(() => {
     let active = true;
 
     const loadAndBuildWaitlist = async () => {
-      // 1. Generate 300 base members deterministically
+      const simulatedTotal = getSimulatedCount();
+      
       const providers = ['gmail.com', 'yahoo.fr', 'outlook.com', 'hotmail.fr', 'icloud.com', 'live.fr'];
       const firstNames = ['Amadou', 'Koffi', 'Yao', 'Moussa', 'Abdoulaye', 'Seydou', 'Ousmane', 'Cheikh', 'Youssouf', 'Mamadou', 'Ibrahim', 'Marc', 'Jean', 'Pierre', 'Thomas', 'Nicolas', 'Antoine', 'Lucas', 'Sarah', 'Awa', 'Fatou', 'Aminata', 'Mariam', 'Yasmina', 'Chloé', 'Marie', 'Sophie', 'Isabelle', 'Bachir', 'Arthur'];
       const lastNames = ['Kouadio', 'Koné', 'Diallo', 'Diop', 'Sow', 'Ndiaye', 'Coulibaly', 'Traoré', 'Keita', 'Kamara', 'Bamba', 'Ouedraogo', 'Fofana', 'Touré', 'Gomez', 'Martin', 'Dubois', 'Moreau', 'Laurent', 'Lefebvre', 'Michel', 'Bernard', 'David', 'Simon', 'Soro', 'Cissé'];
+      const countryPool = COUNTRIES.slice(0, 15);
       
-      const countryPool = COUNTRIES.slice(0, 15); // Primary African and European countries
+      // 2. Fetch real entries from server
+      const realEntries = await fetchRealWaitlist();
+      
+      if (!active) return;
+
+      const userEmail = localStorage.getItem('mz_user_email_v3');
+      const userWhatsapp = localStorage.getItem('mz_user_whatsapp_v3');
+      
+      const realCount = realEntries.length;
+      const baseCount = simulatedTotal - realCount;
+      
       const baseMembers: WaitlistMember[] = [];
-      
-      // Fill up to 300 items
-      for (let i = 1; i <= 300; i++) {
+      // Generate only the newest 150 simulated members for optimal DOM performance
+      const startBase = Math.max(1, baseCount - 150);
+      for (let i = startBase; i <= baseCount; i++) {
         const nameSeed = (i * 73) % firstNames.length;
         const lastSeed = (i * 101) % lastNames.length;
         const provSeed = (i * 13) % providers.length;
@@ -188,12 +306,12 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
         const phoneSuffix = String((i * 12345) % 90 + 10);
         const phoneStr = `${country.code} •••••••${phoneSuffix}`;
         
-        const ageMinutes = 300 - i + 2; 
+        const minutesAgo = baseCount - i + 2; 
         let timeStr = "";
-        if (ageMinutes < 60) {
-          timeStr = `il y a ${ageMinutes} min`;
+        if (minutesAgo < 60) {
+          timeStr = `il y a ${minutesAgo} min`;
         } else {
-          const hours = Math.floor(ageMinutes / 60);
+          const hours = Math.floor(minutesAgo / 60);
           if (hours < 24) {
             timeStr = `il y a ${hours} h`;
           } else {
@@ -211,29 +329,19 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
         });
       }
 
-      // 2. Fetch real entries from Supabase
-      const realEntries = await fetchRealWaitlist();
-      
-      if (!active) return;
-
-      const userEmail = localStorage.getItem('mz_user_email');
-      const userWhatsapp = localStorage.getItem('mz_user_whatsapp');
-      
       const mappedRealMembers: WaitlistMember[] = realEntries.map((entry: any, index: number) => {
-        const rank = 301 + index;
+        const rank = baseCount + 1 + index;
         const entryEmail = entry.email || '';
         const entryWhatsapp = entry.whatsapp || '';
         
-        // Check if this is the user
         const isUserMatch = (userEmail && entryEmail.toLowerCase() === userEmail.toLowerCase()) || 
                             (userWhatsapp && entryWhatsapp === userWhatsapp);
 
         if (isUserMatch && active) {
-          localStorage.setItem('mz_user_rank', String(rank));
+          localStorage.setItem('mz_user_rank_v3', String(rank));
           setUserRank(rank);
         }
 
-        // Anonymize email: e.g., ab***@gmail.com
         let emailStr = entryEmail;
         if (emailStr.includes('@')) {
           const parts = emailStr.split('@');
@@ -244,7 +352,6 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
           emailStr = "anonyme***";
         }
 
-        // Phone format
         let phoneStr = "";
         const countryCode = entry.country_code || "+225";
         if (entryWhatsapp) {
@@ -253,11 +360,8 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
           phoneStr = `${countryCode} •••••••00`;
         }
 
-        // Find country flag
         const entryCountryName = entry.country_name || "Côte d'Ivoire";
         const matchedCountry = COUNTRIES.find(c => c.name.toLowerCase() === entryCountryName.toLowerCase()) || COUNTRIES[0];
-
-        // Format relative time
         const timeStr = entry.created_at ? getRelativeTime(entry.created_at) : "À l'instant";
 
         return {
@@ -277,7 +381,7 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
       // Check if user is registered but NOT matched in the real entries list
       const hasUserMatch = mappedRealMembers.some(m => m.isUser);
       if (isSubmitted && !hasUserMatch && userEmail) {
-        const userCountryName = localStorage.getItem('mz_user_country') || selectedCountry.name;
+        const userCountryName = localStorage.getItem('mz_user_country_v3') || selectedCountry.name;
         const matchedCountry = COUNTRIES.find(c => c.name.toLowerCase() === userCountryName.toLowerCase()) || selectedCountry;
         
         let anonEmail = userEmail;
@@ -286,7 +390,7 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
           anonEmail = parts[0].slice(0, 2) + "***@" + parts[1];
         }
 
-        const calculatedUserRank = parseInt(localStorage.getItem('mz_user_rank') || String(301 + mappedRealMembers.length), 10);
+        const calculatedUserRank = parseInt(localStorage.getItem('mz_user_rank_v3') || String(simulatedTotal), 10);
         setUserRank(calculatedUserRank);
         
         combined.push({
@@ -303,12 +407,11 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
       // Sort to show highest rank first (newest at top)
       combined.sort((a, b) => b.rank - a.rank);
       setMembers(combined);
-      setTotalCount(300 + realEntries.length);
+      setTotalCount(simulatedTotal);
     };
 
     loadAndBuildWaitlist();
 
-    // Poll every 10 seconds to keep the list updated in real-time
     const interval = setInterval(loadAndBuildWaitlist, 10000);
 
     return () => {
@@ -343,7 +446,7 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
       created_at: new Date().toISOString()
     };
 
-    let nextRank = Math.max(totalCount + 1, 301);
+    let nextRank = Math.max(totalCount + 1, 201);
 
     try {
       // Primary: Register on local server API
@@ -359,9 +462,9 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
         if (resData.list && Array.isArray(resData.list)) {
           const index = resData.list.findIndex((item: any) => item.email.toLowerCase() === email.trim().toLowerCase());
           if (index !== -1) {
-            nextRank = 301 + index;
+            nextRank = 201 + index;
           } else {
-            nextRank = 300 + resData.list.length;
+            nextRank = 200 + resData.list.length;
           }
         }
       }
@@ -369,13 +472,13 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
       console.warn("Error posting to local waitlist API:", err);
     }
     
-    localStorage.setItem('mz_user_registered', 'true');
-    localStorage.setItem('mz_user_email', email.trim());
-    localStorage.setItem('mz_user_whatsapp', fullWhatsapp);
-    localStorage.setItem('mz_user_country', selectedCountry.name);
-    localStorage.setItem('mz_user_flag', selectedCountry.flag);
-    localStorage.setItem('mz_user_rank', String(nextRank));
-    localStorage.setItem('mz_waitlist_total_count', String(nextRank));
+    localStorage.setItem('mz_user_registered_v3', 'true');
+    localStorage.setItem('mz_user_email_v3', email.trim());
+    localStorage.setItem('mz_user_whatsapp_v3', fullWhatsapp);
+    localStorage.setItem('mz_user_country_v3', selectedCountry.name);
+    localStorage.setItem('mz_user_flag_v3', selectedCountry.flag);
+    localStorage.setItem('mz_user_rank_v3', String(nextRank));
+    localStorage.setItem('mz_waitlist_total_count_v3', String(nextRank));
 
     setTotalCount(nextRank);
     setUserRank(nextRank);
@@ -441,6 +544,42 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
                 <p className="text-gray-400 text-xs sm:text-sm font-light leading-relaxed">
                   Les places prioritaires sont strictement limitées à <strong className="text-cyan-400 font-extrabold">150 membres</strong>. Entrez vos coordonnées WhatsApp pour obtenir vos accès exclusifs à la seconde du feu vert.
                 </p>
+              </div>
+
+              {/* Countdown Timer */}
+              <div className="p-4 bg-slate-950/80 border border-cyan-500/15 rounded-2xl text-center space-y-2 shadow-[0_0_20px_rgba(6,182,212,0.03)]">
+                <span className="text-[9px] font-mono text-cyan-400/80 font-bold uppercase tracking-wider block">
+                  ⏳ OUVERTURE POUR LE PAYS : {selectedCountry.name.toUpperCase()} ({selectedCountry.launchHour.split(' (')[0]})
+                </span>
+                <div className="flex justify-center items-center gap-3">
+                  <div className="flex flex-col items-center">
+                    <span className="text-lg font-mono font-black text-white leading-none">
+                      {String(timeLeft.days).padStart(2, '0')}
+                    </span>
+                    <span className="text-[7px] font-mono text-gray-500 uppercase tracking-widest mt-1">jours</span>
+                  </div>
+                  <span className="text-sm font-mono text-cyan-500 font-bold mb-3 animate-pulse">:</span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-lg font-mono font-black text-white leading-none">
+                      {String(timeLeft.hours).padStart(2, '0')}
+                    </span>
+                    <span className="text-[7px] font-mono text-gray-500 uppercase tracking-widest mt-1">heures</span>
+                  </div>
+                  <span className="text-sm font-mono text-cyan-500 font-bold mb-3 animate-pulse">:</span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-lg font-mono font-black text-white leading-none">
+                      {String(timeLeft.minutes).padStart(2, '0')}
+                    </span>
+                    <span className="text-[7px] font-mono text-gray-500 uppercase tracking-widest mt-1">min</span>
+                  </div>
+                  <span className="text-sm font-mono text-cyan-500 font-bold mb-3 animate-pulse">:</span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-lg font-mono font-black text-cyan-400 leading-none filter drop-shadow-[0_0_6px_rgba(6,182,212,0.4)]">
+                      {String(timeLeft.seconds).padStart(2, '0')}
+                    </span>
+                    <span className="text-[7px] font-mono text-cyan-400/80 uppercase tracking-widest mt-1">sec</span>
+                  </div>
+                </div>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -549,43 +688,84 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.4 }}
-              className="max-w-xl mx-auto bg-slate-900/80 border border-emerald-500/20 rounded-3xl p-6 md:p-8 shadow-[0_0_60px_rgba(16,185,129,0.06)] space-y-6 mt-4"
+              className="max-w-xl mx-auto bg-slate-900/80 border border-amber-500/20 rounded-3xl p-6 md:p-8 shadow-[0_0_60px_rgba(245,158,11,0.06)] space-y-6 mt-4"
             >
               <div className="flex justify-center">
-                <div className="w-16 h-16 rounded-full bg-emerald-950/40 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-[0_0_30px_rgba(16,185,129,0.2)]">
-                  <CheckCircle2 className="w-8 h-8" />
+                <div className="w-16 h-16 rounded-full bg-amber-950/40 border border-amber-500/40 flex items-center justify-center text-amber-400 shadow-[0_0_30px_rgba(245,158,11,0.2)] animate-pulse">
+                  <AlertTriangle className="w-8 h-8" />
                 </div>
               </div>
 
-              <div className="space-y-5 text-left md:text-center max-w-md mx-auto">
-                <div className="flex items-start gap-3 md:justify-center">
-                  <span className="text-emerald-400 text-lg">✔</span>
-                  <p className="text-emerald-300 font-sans font-bold text-base md:text-lg leading-snug">
-                    Vous avez rejoint la liste d'attente avec succès.
-                  </p>
+              <div className="space-y-6 text-left max-w-md mx-auto">
+                <div className="text-center pb-2 border-b border-white/5">
+                  <span className="text-[10px] font-mono text-amber-400 font-extrabold uppercase tracking-widest bg-amber-950/50 border border-amber-500/20 px-2.5 py-1 rounded">
+                    ⚠️ ACCÈS À ACTIVER AU LANCEMENT
+                  </span>
                 </div>
 
-                <div className="flex items-start gap-3 md:justify-center border-y border-white/5 py-4 my-2">
-                  <span className="text-amber-400 text-lg">⚠️</span>
-                  <p className="text-gray-200 font-sans font-medium text-sm md:text-base leading-relaxed">
-                    Déjà plus de <strong className="text-amber-400 font-black">300 personnes</strong> sont en attente.
-                  </p>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl flex-shrink-0">🔥</span>
+                    <p className="text-gray-200 font-sans font-medium text-sm md:text-base leading-relaxed">
+                      Plus de <strong className="text-amber-400 font-extrabold">{totalCount} personnes</strong> ont déjà rejoint la liste d'attente.
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl flex-shrink-0">⚠️</span>
+                    <p className="text-gray-200 font-sans font-medium text-sm md:text-base leading-relaxed">
+                      Seulement <strong className="text-amber-400 font-extrabold">150 personnes</strong> pourront faire partie de cette ouverture.
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl flex-shrink-0">⏳</span>
+                    <p className="text-cyan-200 font-sans font-extrabold text-sm md:text-base leading-relaxed">
+                      Le <strong className="text-white">4 juillet à {
+                        COUNTRIES.find(c => c.name === (localStorage.getItem('mz_user_country_v3') || selectedCountry.name))?.launchHour || selectedCountry.launchHour
+                      }</strong>, sois présent dès l'ouverture pour maximiser tes chances de faire partie des <strong className="text-cyan-400 font-black underline decoration-cyan-400/50 decoration-2 underline-offset-4">150 premiers membres</strong>.
+                    </p>
+                  </div>
                 </div>
 
-                <div className="flex items-start gap-3 md:justify-center">
-                  <span className="text-cyan-400 text-lg">⏳</span>
-                  <p className="text-cyan-200 font-sans font-extrabold text-sm md:text-base leading-relaxed">
-                    Le plus important maintenant est d'être présent demain à <span className="text-white underline decoration-cyan-400 decoration-2 underline-offset-4">{
-                      COUNTRIES.find(c => c.name === (localStorage.getItem('mz_user_country') || selectedCountry.name))?.launchHour || selectedCountry.launchHour
-                    }</span>.
-                  </p>
-                </div>
-
-                <div className="flex items-start gap-3 md:justify-center">
-                  <span className="text-cyan-400 text-lg">🚀</span>
-                  <p className="text-gray-300 font-sans font-medium text-sm md:text-base leading-relaxed">
-                    C'est à ce moment que vous pourrez tenter de faire partie des <strong className="text-cyan-400 font-extrabold">150 premiers membres</strong>.
-                  </p>
+                {/* Localized Countdown */}
+                <div className="p-4 bg-slate-950/80 border border-amber-500/20 rounded-2xl text-center space-y-2 shadow-[0_0_20px_rgba(245,158,11,0.03)]">
+                  <span className="text-[9px] font-mono text-amber-400/90 font-bold uppercase tracking-wider block">
+                    ⏳ OUVERTURE : {
+                      (COUNTRIES.find(c => c.name === (localStorage.getItem('mz_user_country_v3') || selectedCountry.name)) || selectedCountry).name.toUpperCase()
+                    } ({
+                      (COUNTRIES.find(c => c.name === (localStorage.getItem('mz_user_country_v3') || selectedCountry.name)) || selectedCountry).launchHour.split(' (')[0]
+                    })
+                  </span>
+                  <div className="flex justify-center items-center gap-3">
+                    <div className="flex flex-col items-center">
+                      <span className="text-xl font-mono font-black text-white leading-none">
+                        {String(timeLeft.days).padStart(2, '0')}
+                      </span>
+                      <span className="text-[7px] font-mono text-gray-500 uppercase tracking-widest mt-1">jours</span>
+                    </div>
+                    <span className="text-sm font-mono text-amber-500 font-bold mb-3 animate-pulse">:</span>
+                    <div className="flex flex-col items-center">
+                      <span className="text-xl font-mono font-black text-white leading-none">
+                        {String(timeLeft.hours).padStart(2, '0')}
+                      </span>
+                      <span className="text-[7px] font-mono text-gray-500 uppercase tracking-widest mt-1">heures</span>
+                    </div>
+                    <span className="text-sm font-mono text-amber-500 font-bold mb-3 animate-pulse">:</span>
+                    <div className="flex flex-col items-center">
+                      <span className="text-xl font-mono font-black text-white leading-none">
+                        {String(timeLeft.minutes).padStart(2, '0')}
+                      </span>
+                      <span className="text-[7px] font-mono text-gray-500 uppercase tracking-widest mt-1">min</span>
+                    </div>
+                    <span className="text-sm font-mono text-amber-500 font-bold mb-3 animate-pulse">:</span>
+                    <div className="flex flex-col items-center">
+                      <span className="text-xl font-mono font-black text-amber-400 leading-none filter drop-shadow-[0_0_6px_rgba(245,158,11,0.4)]">
+                        {String(timeLeft.seconds).padStart(2, '0')}
+                      </span>
+                      <span className="text-[7px] font-mono text-amber-400/80 uppercase tracking-widest mt-1">sec</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -627,14 +807,14 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
                 {/* Small Counter Info */}
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <span className="text-[9px] font-mono text-gray-400 block uppercase tracking-wider">Votre Rang</span>
-                    <span className="text-base font-mono font-black text-cyan-400">
-                      #{userRank}
+                    <span className="text-[9px] font-mono text-gray-400 block uppercase tracking-wider">Statut</span>
+                    <span className="text-xs font-sans font-black text-amber-400 uppercase tracking-wide bg-amber-950/40 border border-amber-500/20 px-2 py-0.5 rounded shadow-[0_0_15px_rgba(245,158,11,0.1)] animate-pulse">
+                      À ACTIVER ⏳
                     </span>
                   </div>
                   <div className="h-8 w-px bg-white/10" />
                   <div className="text-right">
-                    <span className="text-[9px] font-mono text-gray-400 block uppercase tracking-wider">Total Inscrits</span>
+                    <span className="text-[9px] font-mono text-gray-400 block uppercase tracking-wider">Inscrits</span>
                     <span className="text-base font-mono font-black text-white">
                       {totalCount}
                     </span>
@@ -647,43 +827,74 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
                 {/* Left Side Status */}
                 <div className="lg:col-span-4 space-y-4">
                   <div className="bg-slate-900/40 border border-cyan-500/10 rounded-2xl p-5 space-y-4">
-                    <div className="p-3 bg-cyan-950/40 rounded-xl border border-cyan-500/20 text-center">
+                    <div className="p-4 bg-amber-950/20 rounded-xl border border-amber-500/10 text-center">
                       <span className="text-[10px] font-mono text-gray-400 block uppercase tracking-wide">
-                        Votre Position Actuelle
+                        Statut d'inscription
                       </span>
-                      <span className="text-3xl font-mono font-black text-white block mt-1">
-                        #{userRank}
+                      <span className="text-xs font-sans font-black text-amber-400 block mt-2.5 uppercase tracking-widest bg-amber-950/60 border border-amber-500/20 px-3 py-1.5 rounded-lg animate-pulse shadow-[0_0_15px_rgba(245,158,11,0.15)]">
+                        ⏳ EN ATTENTE D'ACTIVATION
                       </span>
+                    </div>
+
+                    {/* Localized Countdown */}
+                    <div className="p-3 bg-slate-950 border border-cyan-500/5 rounded-xl text-center space-y-1.5">
+                      <span className="text-[8px] font-mono text-cyan-400/80 font-bold uppercase tracking-wider block">
+                        ⏳ OUVERTURE DANS VOTRE PAYS ({
+                          (COUNTRIES.find(c => c.name === (localStorage.getItem('mz_user_country_v3') || selectedCountry.name)) || selectedCountry).name.toUpperCase()
+                        })
+                      </span>
+                      <div className="flex justify-center items-center gap-2">
+                        <div className="flex flex-col items-center">
+                          <span className="text-sm font-mono font-black text-white leading-none">
+                            {String(timeLeft.days).padStart(2, '0')}
+                          </span>
+                          <span className="text-[6px] font-mono text-gray-500 uppercase mt-0.5">j</span>
+                        </div>
+                        <span className="text-xs font-mono text-cyan-500 font-bold mb-2 animate-pulse">:</span>
+                        <div className="flex flex-col items-center">
+                          <span className="text-sm font-mono font-black text-white leading-none">
+                            {String(timeLeft.hours).padStart(2, '0')}
+                          </span>
+                          <span className="text-[6px] font-mono text-gray-500 uppercase mt-0.5">h</span>
+                        </div>
+                        <span className="text-xs font-mono text-cyan-500 font-bold mb-2 animate-pulse">:</span>
+                        <div className="flex flex-col items-center">
+                          <span className="text-sm font-mono font-black text-white leading-none">
+                            {String(timeLeft.minutes).padStart(2, '0')}
+                          </span>
+                          <span className="text-[6px] font-mono text-gray-500 uppercase mt-0.5">m</span>
+                        </div>
+                        <span className="text-xs font-mono text-cyan-500 font-bold mb-2 animate-pulse">:</span>
+                        <div className="flex flex-col items-center">
+                          <span className="text-sm font-mono font-black text-cyan-400 leading-none filter drop-shadow-[0_0_4px_rgba(6,182,212,0.4)]">
+                            {String(timeLeft.seconds).padStart(2, '0')}
+                          </span>
+                          <span className="text-[6px] font-mono text-cyan-400/80 uppercase mt-0.5">s</span>
+                        </div>
+                      </div>
                     </div>
 
                     <div className="space-y-4 text-xs text-gray-200 font-light leading-relaxed">
                       <div className="flex items-start gap-2.5">
-                        <span className="text-emerald-400 text-sm flex-shrink-0 mt-0.5">✅</span>
+                        <span className="text-amber-500 text-sm flex-shrink-0 mt-0.5">🔥</span>
                         <p>
-                          Vous êtes la <strong className="text-cyan-400 font-extrabold">n°{userRank}</strong> à avoir rejoint la liste d'attente MZ+.
+                          Plus de <strong className="text-amber-400 font-extrabold">{totalCount} personnes</strong> ont déjà rejoint la liste d'attente.
                         </p>
                       </div>
 
                       <div className="flex items-start gap-2.5">
                         <span className="text-amber-400 text-sm flex-shrink-0 mt-0.5">⚠️</span>
                         <p>
-                          Cependant, seules <strong className="text-amber-400 font-black">150 places</strong> seront disponibles lors du lancement.
+                          Seulement <strong className="text-amber-400 font-black">150 personnes</strong> pourront faire partie de cette ouverture.
                         </p>
                       </div>
 
                       <div className="flex items-start gap-2.5">
                         <span className="text-cyan-400 text-sm flex-shrink-0 mt-0.5">⏳</span>
                         <p>
-                          L'idéal est donc d'être présent le <strong className="text-white font-semibold">4 juillet à {
-                            COUNTRIES.find(c => c.name === (localStorage.getItem('mz_user_country') || selectedCountry.name))?.launchHour || selectedCountry.launchHour
-                          }</strong> afin d'avoir une chance de faire partie des <strong className="text-cyan-400 font-extrabold">150 premiers membres</strong>.
-                        </p>
-                      </div>
-
-                      <div className="flex items-start gap-2.5 pt-1.5 border-t border-white/5">
-                        <span className="text-cyan-400 text-sm flex-shrink-0 mt-0.5">🚀</span>
-                        <p className="font-bold text-cyan-300">
-                          Chaque minute pourra compter.
+                          Le <strong className="text-white font-semibold">4 juillet à {
+                            COUNTRIES.find(c => c.name === (localStorage.getItem('mz_user_country_v3') || selectedCountry.name))?.launchHour || selectedCountry.launchHour
+                          }</strong>, sois présent dès l'ouverture pour maximiser tes chances de faire partie des <strong className="text-cyan-400 font-extrabold">150 premiers membres</strong>.
                         </p>
                       </div>
                     </div>
@@ -691,13 +902,13 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
                     <button
                       onClick={() => {
                         if(confirm("Voulez-vous enregistrer un autre numéro ou modifier vos coordonnées ?")) {
-                          localStorage.removeItem('mz_user_registered');
-                          localStorage.removeItem('mz_user_email');
-                          localStorage.removeItem('mz_user_whatsapp');
-                          localStorage.removeItem('mz_user_country');
-                          localStorage.removeItem('mz_user_flag');
-                          localStorage.removeItem('mz_user_rank');
-                          setUserRank(301);
+                          localStorage.removeItem('mz_user_registered_v3');
+                          localStorage.removeItem('mz_user_email_v3');
+                          localStorage.removeItem('mz_user_whatsapp_v3');
+                          localStorage.removeItem('mz_user_country_v3');
+                          localStorage.removeItem('mz_user_flag_v3');
+                          localStorage.removeItem('mz_user_rank_v3');
+                          setUserRank(201);
                           setIsSubmitted(false);
                           setShowList(false);
                         }
@@ -714,8 +925,8 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
                   <div className="bg-slate-900/60 border border-white/5 rounded-3xl overflow-hidden flex flex-col h-[520px] shadow-[0_0_40px_rgba(0,0,0,0.5)]">
                     {/* Table Header */}
                     <div className="p-4 bg-slate-950 border-b border-white/5 flex items-center justify-between text-[10px] font-mono text-gray-400 uppercase tracking-wider font-bold">
-                      <span>Position & Utilisateur</span>
-                      <span>Pays & Statut</span>
+                      <span>Statut & Utilisateur</span>
+                      <span>Pays & Temps</span>
                     </div>
 
                     {/* Scrollable Members List */}
@@ -738,8 +949,16 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
                             }`}
                           >
                             <div className="flex items-center gap-3.5">
-                              <div className={`font-mono font-black text-xs min-w-[36px] ${member.isUser ? 'text-cyan-400' : 'text-gray-500'}`}>
-                                #{member.rank}
+                              <div className="min-w-[75px] flex-shrink-0">
+                                {member.isUser ? (
+                                  <span className="px-2 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/30 text-[8px] font-mono font-bold text-cyan-400 uppercase tracking-wider animate-pulse">
+                                    ⚡ VOUS
+                                  </span>
+                                ) : (
+                                  <span className="px-2 py-0.5 rounded bg-slate-950 border border-white/5 text-[8px] font-mono font-bold text-gray-400 uppercase tracking-wider">
+                                    ⚡ EN QUEUE
+                                  </span>
+                                )}
                               </div>
                               
                               <div className="space-y-0.5">
@@ -747,11 +966,6 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
                                   <span className={`font-medium ${member.isUser ? 'text-cyan-300 font-extrabold' : 'text-gray-200'}`}>
                                     {member.email}
                                   </span>
-                                  {member.isUser && (
-                                    <span className="bg-cyan-500/10 border border-cyan-500/20 text-[8px] font-mono font-bold text-cyan-400 px-1.5 py-0.5 rounded uppercase animate-pulse">
-                                      Votre Position
-                                    </span>
-                                  )}
                                 </div>
                                 <div className="text-[10px] text-gray-400 flex items-center gap-1.5 font-mono">
                                   <span>{member.phone}</span>

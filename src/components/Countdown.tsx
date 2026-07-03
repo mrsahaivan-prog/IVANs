@@ -13,8 +13,8 @@ interface CountdownProps {
 }
 
 export default function Countdown({ onJoinWaitlistClick }: CountdownProps) {
-  // Target: Saturday, July 4th, 2026, at 20:00:00 GMT+1
-  const targetDate = new Date(Date.UTC(2026, 6, 4, 19, 0, 0));
+  // Target: Saturday, July 4th, 2026, at 20:00:00 GMT
+  const targetDate = new Date(Date.UTC(2026, 6, 4, 20, 0, 0));
 
   const [timeLeft, setTimeLeft] = useState<CountdownTime>({
     days: 0,
@@ -83,7 +83,7 @@ export default function Countdown({ onJoinWaitlistClick }: CountdownProps) {
               </span>
             </div>
             <p className="text-xs text-gray-400 font-sans mt-1">
-              Ouverture des accès : <span className="text-white font-semibold underline decoration-cyan-500/50">Samedi 4 Juillet à 20h00 (GMT+1)</span>
+              Ouverture des accès : <span className="text-white font-semibold underline decoration-cyan-500/50">Samedi 4 Juillet à 20h00 (GMT)</span>
             </p>
           </div>
         </div>
