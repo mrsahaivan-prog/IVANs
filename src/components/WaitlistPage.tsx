@@ -7,45 +7,7 @@ import { useState, FormEvent, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Phone, CheckCircle2, ArrowRight, ShieldCheck, Sparkles, Users, Clock, ArrowLeft, Shield, AlertTriangle } from 'lucide-react';
 
-interface Country {
-  name: string;
-  code: string;
-  flag: string;
-  launchHour: string;
-}
-
-const COUNTRIES: Country[] = [
-  // West & Central Africa (Primary Market)
-  { name: "Côte d'Ivoire", code: "+225", flag: "🇨🇮", launchHour: "20h00 (Heure d'Abidjan)" },
-  { name: "Sénégal", code: "+221", flag: "🇸🇳", launchHour: "20h00 (Heure de Dakar)" },
-  { name: "Cameroun", code: "+237", flag: "🇨🇲", launchHour: "21h00 (Heure de Douala)" },
-  { name: "Mali", code: "+223", flag: "🇲🇱", launchHour: "20h00 (Heure de Bamako)" },
-  { name: "Burkina Faso", code: "+226", flag: "🇧🇫", launchHour: "20h00 (Heure de Ouagadougou)" },
-  { name: "Bénin", code: "+229", flag: "🇧🇯", launchHour: "21h00 (Heure de Cotonou)" },
-  { name: "Togo", code: "+228", flag: "🇹🇬", launchHour: "20h00 (Heure de Lomé)" },
-  { name: "Guinée", code: "+224", flag: "🇬🇳", launchHour: "20h00 (Heure de Conakry)" },
-  { name: "Gabon", code: "+241", flag: "🇬🇦", launchHour: "21h00 (Heure de Libreville)" },
-  { name: "Rép. Dém. du Congo", code: "+243", flag: "🇨🇩", launchHour: "21h00 (Heure de Kinshasa)" },
-  { name: "Congo-Brazzaville", code: "+242", flag: "🇨🇬", launchHour: "21h00 (Heure de Brazzaville)" },
-  { name: "Niger", code: "+227", flag: "🇳🇪", launchHour: "21h00 (Heure de Niamey)" },
-  { name: "Tchad", code: "+235", flag: "🇹🇩", launchHour: "21h00 (Heure de N'Djamena)" },
-  { name: "Centrafrique", code: "+236", flag: "🇨🇫", launchHour: "21h00 (Heure de Bangui)" },
-  { name: "Guinée Équatoriale", code: "+240", flag: "🇬🇶", launchHour: "21h00 (Heure de Malabo)" },
-  { name: "France", code: "+33", flag: "🇫🇷", launchHour: "22h00 (Heure de Paris)" },
-  { name: "Belgique", code: "+32", flag: "🇧🇪", launchHour: "22h00 (Heure de Bruxelles)" },
-  { name: "Canada", code: "+1", flag: "🇨🇦", launchHour: "16h00 (Heure de Montréal)" },
-  { name: "Suisse", code: "+41", flag: "🇨🇭", launchHour: "22h00 (Heure de Zurich)" },
-  { name: "États-Unis", code: "+1", flag: "🇺🇸", launchHour: "16h00 (Heure de New York)" },
-
-  // Rest of Africa & World Alphabetical
-  { name: "Algérie", code: "+213", flag: "🇩🇿", launchHour: "21h00 (Heure d'Alger)" },
-  { name: "Allemagne", code: "+49", flag: "🇩🇪", launchHour: "22h00 (Heure de Berlin)" },
-  { name: "Maroc", code: "+212", flag: "🇲🇦", launchHour: "21h00 (Heure de Casablanca)" },
-  { name: "Tunisie", code: "+216", flag: "🇹🇳", launchHour: "21h00 (Heure de Tunis)" },
-  { name: "Royaume-Uni", code: "+44", flag: "🇬🇧", launchHour: "21h00 (Heure de Londres)" },
-  { name: "La Réunion", code: "+262", flag: "🇷🇪", launchHour: "00h00 (Heure de Saint-Denis, le 5 Juillet)" },
-  { name: "Madagascar", code: "+261", flag: "🇲🇬", launchHour: "23h00 (Heure de Antananarivo)" }
-];
+import { COUNTRIES, Country } from '../countries';
 
 interface WaitlistMember {
   rank: number;
@@ -77,55 +39,51 @@ function getRelativeTime(isoString: string): string {
 }
 
 const getSimulatedCount = (): number => {
+  // 1. Check if admin custom simulated count is set
+  const adminCustom = localStorage.getItem('mz_custom_simulated_count');
+  if (adminCustom) {
+    const parsedAdmin = parseInt(adminCustom, 10);
+    if (!isNaN(parsedAdmin)) {
+      return parsedAdmin;
+    }
+  }
+
   const now = Date.now();
   const startTime = new Date("2026-07-03T23:00:00Z").getTime();
   const launchTime = new Date("2026-07-04T20:00:00Z").getTime();
   
-  if (now <= startTime) {
-    return 200;
+  let baseCount = 200;
+  if (now > startTime) {
+    if (now >= launchTime) {
+      const postElapsed = Math.floor((now - launchTime) / 1000);
+      baseCount = 1750 + Math.floor(postElapsed / 1200);
+    } else {
+      const elapsedSeconds = Math.floor((now - startTime) / 1000);
+      const totalSeconds = Math.floor((launchTime - startTime) / 1000);
+      const pct = elapsedSeconds / totalSeconds;
+      const baseVal = 200 + 1300 * Math.pow(pct, 1.2); // Start at 200, grow to 1500+
+      const liveTicks = Math.floor(elapsedSeconds / 80);
+      baseCount = Math.floor(baseVal + liveTicks);
+    }
   }
-  
-  if (now >= launchTime) {
-    // After launch, keep it stable around 1700 with a tiny live variation of +/- 2
-    const minSeed = Math.floor(now / 60000);
-    const postNoise = Math.floor((Math.sin(minSeed * 0.1) + 1) * 2); // 0 to 4
-    return 1700 + postNoise;
+
+  const finalCount = Math.max(200, Math.min(1800, baseCount));
+
+  // 2. Ensure it never drops back by storing max seen in localStorage
+  try {
+    const savedMax = localStorage.getItem('mz_permanent_counter_v3');
+    if (savedMax) {
+      const parsedMax = parseInt(savedMax, 10);
+      if (!isNaN(parsedMax) && parsedMax > finalCount) {
+        return parsedMax;
+      }
+    }
+    localStorage.setItem('mz_permanent_counter_v3', finalCount.toString());
+  } catch (e) {
+    // Ignore sandbox write errors
   }
-  
-  const totalDuration = launchTime - startTime;
-  const elapsed = now - startTime;
-  const pct = elapsed / totalDuration; // between 0 and 1
-  
-  // 1. Base organic S-curve progression (starts slow, accelerates over time)
-  // Power curve pct^1.9 provides a gorgeous progressive acceleration!
-  const baseGrowth = 200 + 1500 * Math.pow(pct, 1.9);
-  
-  // 2. Diurnal cycle wave (lower registration at night, higher during lunch 12h-14h and evening 18h-22h UTC)
-  const date = new Date(now);
-  const utcHour = date.getUTCHours();
-  const utcMin = date.getUTCMinutes();
-  const timeOfDayDecimal = utcHour + utcMin / 60;
-  
-  // Double-peak human behavior: Lunch break (13:00) and evening peak (20:00 UTC)
-  const lunchPeak = Math.exp(-Math.pow(timeOfDayDecimal - 13, 2) / 6) * 12; // peak of +12
-  const eveningPeak = Math.exp(-Math.pow(timeOfDayDecimal - 20, 2) / 8) * 22; // peak of +22
-  const nightLow = Math.exp(-Math.pow(timeOfDayDecimal - 3, 2) / 8) * -15; // night drop
-  
-  // Overall diurnal adjustment that scales with progression (list size)
-  const diurnalOffset = (lunchPeak + eveningPeak + nightLow) * pct;
-  
-  // 3. Small pseudo-random organic variations from one hour to another (deterministic)
-  const hourId = Math.floor(elapsed / 3600000);
-  const hourNoise = Math.sin(hourId * 17.31 + 4.12) * 8 * pct; // up to +/-8 variation as we approach launch
-  
-  // 4. Micro-variations at the minute/second level so refresh shows it ticking live!
-  const liveNoise = Math.sin(now / 4000) * 1.5; // smooth wave of +/- 1.5 every 4s
-  
-  const rawVal = baseGrowth + diurnalOffset + hourNoise + liveNoise;
-  
-  // Clamp the result strictly: must start at 200 and must stay under 1800 before launch
-  const finalCount = Math.floor(rawVal);
-  return Math.max(200, Math.min(1799, finalCount));
+
+  return finalCount;
 };
 
 async function fetchRealWaitlist(): Promise<any[]> {
@@ -171,7 +129,7 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
   const [members, setMembers] = useState<WaitlistMember[]>([]);
   const [totalCount, setTotalCount] = useState(() => {
     const saved = localStorage.getItem('mz_waitlist_total_count_v3');
-    return saved ? Math.min(1800, parseInt(saved, 10)) : getSimulatedCount();
+    return saved ? parseInt(saved, 10) : getSimulatedCount();
   });
   const [userRank, setUserRank] = useState<number>(() => {
     const saved = localStorage.getItem('mz_user_rank_v3');
@@ -191,7 +149,22 @@ export default function WaitlistPage({ onBack, source = 'general' }: WaitlistPag
     const targetDate = new Date(Date.UTC(2026, 6, 4, 20, 0, 0));
     
     const calculateTimeLeft = () => {
-      const difference = targetDate.getTime() - Date.now();
+      // Admin overrides
+      const isForced = localStorage.getItem('mz_admin_override_countdown') === 'true';
+      if (isForced) {
+        setTimeLeft({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+          isCompleted: true,
+        });
+        return;
+      }
+
+      const customTimeStr = localStorage.getItem('mz_custom_launch_time');
+      const targetTimeMs = customTimeStr ? parseInt(customTimeStr, 10) : targetDate.getTime();
+      const difference = targetTimeMs - Date.now();
       
       if (difference <= 0) {
         setTimeLeft({

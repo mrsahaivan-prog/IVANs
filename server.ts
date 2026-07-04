@@ -102,6 +102,7 @@ app.get("/api/waitlist", async (req, res) => {
               mergedList.push({
                 email: item.email,
                 whatsapp: item.whatsapp || "",
+                fullName: item.fullName || "",
                 country_code: item.country_code || "",
                 country_name: item.country_name || "",
                 source: item.source || "general",
@@ -134,7 +135,7 @@ app.get("/api/waitlist", async (req, res) => {
 
 // 2. Submit to waitlist
 app.post("/api/waitlist", async (req, res) => {
-  const { email, whatsapp, country_code, country_name, source, created_at } = req.body;
+  const { email, whatsapp, country_code, country_name, source, created_at, fullName } = req.body;
   
   if (!email || !whatsapp) {
     return res.status(400).json({ error: "Email and whatsapp are required" });
@@ -148,6 +149,7 @@ app.post("/api/waitlist", async (req, res) => {
   const newEntry = {
     email: email.trim(),
     whatsapp: whatsapp.trim(),
+    fullName: fullName ? fullName.trim() : "",
     country_code: country_code || "",
     country_name: country_name || "",
     source: source || "general",
@@ -157,9 +159,9 @@ app.post("/api/waitlist", async (req, res) => {
   if (!isDuplicate) {
     list.push(newEntry);
     writeLocalDb(list);
-    console.log(`Added email ${email} to local waitlist. Total count: ${list.length}`);
+    console.log(`Added email ${email} (Name: ${newEntry.fullName}) to local database. Total count: ${list.length}`);
   } else {
-    console.log(`Email ${email} is already in local waitlist.`);
+    console.log(`Email ${email} is already in local database.`);
   }
   
   // Save to Supabase (non-blocking)
@@ -212,6 +214,7 @@ app.post("/api/waitlist", async (req, res) => {
                 latestList.push({
                   email: item.email,
                   whatsapp: item.whatsapp || "",
+                  fullName: item.fullName || "",
                   country_code: item.country_code || "",
                   country_name: item.country_name || "",
                   source: item.source || "general",
@@ -231,6 +234,13 @@ app.post("/api/waitlist", async (req, res) => {
   latestList.sort((a: any, b: any) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
   
   res.json({ success: true, entry: newEntry, list: latestList });
+});
+
+// 3. Clear local waitlist (Admin only)
+app.post("/api/admin/clear-waitlist", (req, res) => {
+  writeLocalDb([]);
+  console.log("Local waitlist cleared by administrator.");
+  res.json({ success: true, message: "Local database cleared" });
 });
 
 // Vite middleware setup

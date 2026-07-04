@@ -6,6 +6,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Play, ArrowLeft, Sparkles, X, Lock, Flame, Eye, BookOpen, Clock, CheckCircle, Trophy, GraduationCap, ChevronRight } from 'lucide-react';
+import { isLaunchModeActive } from '../utils';
 
 // @ts-ignore
 import lessonOneImg from '../assets/images/academy_lesson_one_1783048319165.jpg';
@@ -25,11 +26,15 @@ export default function AcademyView({ onBack, onJoinWaitlist }: AcademyViewProps
     module: string;
     subtitle: string;
     description: string;
-    duration: string;
+    chaptersCount: string;
     lessons: string[];
     author: string;
     image: string;
   } | null>(null);
+
+  const handleCardClick = (formation: any) => {
+    setActiveVideo(formation);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -44,32 +49,22 @@ export default function AcademyView({ onBack, onJoinWaitlist }: AcademyViewProps
       title: "Comment devenir la personne capable de générer des millions",
       subtitle: "Psychologie & Mindset Financier",
       module: "MODULE 1",
-      duration: "1h 45m de formation immersive",
+      chaptersCount: "15 chapitres",
       author: "Par les Experts Fondateurs MZ+",
       image: lessonOneImg,
-      description: "Tout commence dans votre esprit. Découvrez comment reprogrammer vos habitudes quotidiennes, éliminer vos croyances limitantes et développer la vision d'affaires indispensable pour attirer et gérer des opportunités de grande envergure.",
-      lessons: [
-        "Reprogrammation mentale : Briser les croyances limitantes sur l'argent",
-        "La psychologie des multimillionnaires : Rituels et habitudes quotidiennes",
-        "Vision d'affaires à fort impact : Aligner ambitions et exécution",
-        "Gestion émotionnelle face au risque et décisions à haute valeur"
-      ]
+      description: "Tout commence dans votre esprit. Ce module vidéo d'exception vous enseigne comment reprogrammer vos habitudes quotidiennes, éliminer vos croyances limitantes et développer la vision d'affaires indispensable pour attirer et gérer des opportunités de grande envergure.",
+      lessons: []
     },
     {
       id: 2,
       title: "Comment générer mon premier million avec MZ+",
       subtitle: "Plan de Route & Stratégies Clés",
       module: "MODULE 2",
-      duration: "2h 15m de plan d'action pur",
+      chaptersCount: "15 chapitres",
       author: "Par les Experts Fondateurs MZ+",
       image: lessonTwoImg,
-      description: "Le guide d'action concret et pragmatique. Découvrez la feuille de route pas-à-pas et les piliers d'affaires exclusifs de MZ+ qui transforment les leviers de l'écosystème en votre plus grande réussite financière.",
-      lessons: [
-        "L'écosystème MZ+ : Architecture et leviers de gains secrets",
-        "Plan d'action pas-à-pas : Passer de 0 à vos premiers 10 000 €",
-        "Optimisation des revenus passifs et automatisation de vos systèmes",
-        "Stratégies de scaling pour démultiplier votre liberté financière"
-      ]
+      description: "Le guide d'action concret et pragmatique. Ce module vidéo exclusif vous dévoile la feuille de route pas-à-pas et les piliers d'affaires exclusifs de MZ+ qui transforment les leviers de l'écosystème en votre plus grande réussite financière.",
+      lessons: []
     }
   ];
 
@@ -91,7 +86,7 @@ export default function AcademyView({ onBack, onJoinWaitlist }: AcademyViewProps
       </motion.button>
 
       {/* 👑 HEADLINE SECTION - Prominent, centered, high focus on Title */}
-      <div className="mb-14 text-center relative z-10 max-w-4xl mx-auto">
+      <div className="mb-10 text-center relative z-10 max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -99,139 +94,146 @@ export default function AcademyView({ onBack, onJoinWaitlist }: AcademyViewProps
           className="flex flex-col items-center"
         >
           {/* Neon Badging */}
-          <div className="inline-flex items-center gap-2 bg-cyan-950/40 border border-cyan-500/20 rounded-full px-4 py-1.5 mb-6 text-[10px] font-mono text-cyan-400 font-extrabold tracking-widest uppercase shadow-[0_0_20px_rgba(6,182,212,0.15)] animate-pulse">
+          <div className="inline-flex items-center gap-2 bg-cyan-950/40 border border-cyan-500/20 rounded-full px-4 py-1.5 mb-5 text-[10px] font-mono text-cyan-400 font-extrabold tracking-widest uppercase shadow-[0_0_20px_rgba(6,182,212,0.15)] animate-pulse">
             <GraduationCap className="w-4 h-4 text-cyan-400" />
             <span>ACCÈS ANTICIPÉ EXCLUSIF (MEMBRES 1/150)</span>
           </div>
 
           {/* Majestic High-Focus Title */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-sans font-black tracking-tight text-white mb-6 uppercase leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-sans font-black tracking-tight text-white mb-6 uppercase leading-tight">
             🎓 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-cyan-400 filter drop-shadow-[0_0_20px_rgba(6,182,212,0.3)]">Académie MZ+</span>
           </h1>
 
           {/* Slogan with high contrast container to draw complete focus */}
-          <div className="relative inline-block px-6 py-4 rounded-2xl bg-gradient-to-b from-slate-900/60 to-slate-950/90 border border-cyan-500/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] max-w-2xl">
-            <span className="absolute top-1 left-3 text-cyan-500/20 text-4xl font-serif">“</span>
-            <p className="text-gray-200 text-sm sm:text-base md:text-lg font-light leading-relaxed italic relative z-10 px-4">
-              C'est ici que nous allons te former et t'accompagner pas à pas jusqu'à ta liberté financière.
+          <div className="relative inline-block w-full px-6 py-5 rounded-2xl bg-gradient-to-b from-slate-900/80 to-slate-950/95 border border-cyan-500/15 shadow-[0_10px_30px_rgba(0,0,0,0.6)] max-w-2xl">
+            <h2 className="text-sm sm:text-base md:text-lg font-mono font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 mb-2 uppercase tracking-wider">
+              ⚡ Bon, voici ce qui va se passer :
+            </h2>
+            <p className="text-white text-sm sm:text-base md:text-lg font-light leading-relaxed italic relative z-10 px-4">
+              “C'est ici que nous allons te former et t'accompagner pas à pas jusqu'à ta liberté financière.”
             </p>
-            <span className="absolute bottom-1 right-3 text-cyan-500/20 text-4xl font-serif">”</span>
           </div>
           
-          <div className="w-40 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent mt-8" />
+          <div className="w-40 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent mt-6" />
         </motion.div>
       </div>
 
-      {/* Grid containing the highly optimized Premium Cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 relative z-10 mb-16">
+      {/* Grid containing the highly optimized Premium Cards - side-by-side and extremely compact */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10 mb-10">
         {formations.map((formation, index) => (
           <motion.div
             key={formation.id}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: index * 0.15, ease: 'easeOut' }}
-            className="group relative rounded-3xl border border-white/[0.04] bg-gradient-to-b from-slate-900/70 to-slate-950/95 overflow-hidden shadow-[0_4px_40px_rgba(0,0,0,0.8)] transition-all duration-500 hover:border-cyan-500/30 hover:shadow-[0_0_50px_rgba(6,182,212,0.15)] flex flex-col justify-between"
+            onClick={() => handleCardClick(formation)}
+            className="group relative rounded-2xl border border-white/[0.04] bg-gradient-to-b from-slate-900/80 to-slate-950/95 p-5 shadow-[0_4px_30px_rgba(0,0,0,0.6)] transition-all duration-300 hover:border-cyan-500/35 hover:shadow-[0_0_40px_rgba(6,182,212,0.12)] flex flex-col justify-between cursor-pointer space-y-4"
           >
             {/* Top glowing edge line */}
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-            {/* Premium Video Media Frame */}
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-950 border-b border-white/5 flex flex-col items-center justify-center">
-              {/* Dynamic Image with slow elegant zoom on hover */}
-              <img 
-                src={formation.image} 
-                alt={formation.title}
-                className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 ease-out"
-                referrerPolicy="no-referrer"
-              />
-              {/* Radial gradient shadow on top of the image */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/20" />
-              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500" />
-
-              {/* Tag Overlays */}
-              <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
-                <span className="px-3 py-1 rounded-full bg-slate-950/90 border border-cyan-500/30 text-[10px] font-mono text-cyan-400 font-black tracking-widest uppercase shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
-                  {formation.module}
-                </span>
-                <span className="px-2.5 py-1 rounded-full bg-slate-950/90 border border-white/10 text-[9px] font-mono text-gray-400 flex items-center gap-1">
-                  <Clock className="w-3 h-3 text-cyan-500" />
-                  <span>{formation.duration.split(' ')[0]}</span>
-                </span>
-              </div>
-
-              {/* Live locked state marker */}
-              <div className="absolute top-4 right-4 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-950/90 border border-red-500/30 text-[9px] font-mono text-red-400 font-bold tracking-wider shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
-                <span>FLUX RESTREINT</span>
-              </div>
-
-              {/* Locked overlay effect */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/20 group-hover:bg-slate-950/0 transition-colors duration-500 z-10">
-                <div className="w-12 h-12 rounded-full bg-slate-950/90 border border-cyan-500/25 flex items-center justify-center text-cyan-400 shadow-[0_4px_20px_rgba(6,182,212,0.3)] transition-all duration-500 group-hover:scale-95 group-hover:border-cyan-400">
-                  <Lock className="w-5 h-5 text-cyan-400" />
+            <div className="space-y-4">
+              {/* Header inside Card (Replacing big thumbnail with ultra-high contrast title & module header) */}
+              <div className="flex items-center justify-between border-b border-white/5 pb-2.5">
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-1 rounded bg-cyan-950/80 border border-cyan-500/20 text-[10px] font-mono text-cyan-400 font-extrabold tracking-wider">
+                    {formation.module}
+                  </span>
+                  <span className="text-[10px] font-mono text-gray-400 font-medium uppercase tracking-wider">
+                    {formation.subtitle}
+                  </span>
                 </div>
-                <span className="text-[10px] font-mono tracking-widest text-cyan-400/80 uppercase mt-3 bg-slate-950/85 px-3 py-1 rounded-full border border-white/5 font-extrabold shadow-md">
-                  CYBER-SÉCURISÉ
-                </span>
+                <div className="flex items-center gap-1">
+                  <span className="px-1.5 py-0.5 rounded bg-red-950/60 border border-red-500/20 text-[7px] font-mono text-red-400 font-bold uppercase tracking-wider">
+                    🔒 RESTREINT
+                  </span>
+                </div>
               </div>
 
-              {/* Centered Large Premium Play Button */}
-              <button
-                onClick={() => setActiveVideo(formation)}
-                className="absolute m-auto w-16 h-16 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 hover:bg-cyan-400 cursor-pointer z-20"
-              >
-                <Play className="w-6 h-6 ml-1 fill-slate-950 stroke-slate-950" />
-              </button>
-            </div>
-
-            {/* Course details & Full Syllabus description */}
-            <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-[10px] font-mono uppercase text-cyan-400 tracking-widest font-extrabold">
-                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>{formation.subtitle}</span>
-                </div>
-
-                <h3 className="text-xl sm:text-2xl font-sans font-black text-white tracking-tight leading-snug group-hover:text-cyan-300 transition-colors duration-300">
+              {/* Huge Focus Title */}
+              <div className="space-y-1">
+                <h3 className="text-base sm:text-lg font-sans font-black text-white tracking-tight leading-snug group-hover:text-cyan-300 transition-colors duration-300 uppercase">
+                  <span className="text-cyan-400 font-mono text-xs tracking-widest mr-2 block mb-1">{formation.module} :</span>
                   {formation.title}
                 </h3>
+              </div>
 
-                <p className="text-xs sm:text-sm text-gray-400 leading-relaxed font-light">
-                  {formation.description}
-                </p>
+              {/* Premium Simulated Video Player Card Thumbnail */}
+              <div className="relative aspect-[16/9] w-full bg-slate-950 rounded-xl overflow-hidden border border-white/5 group/player flex flex-col items-center justify-center">
+                {/* Backdrop Image with high-end dark gradient overlays */}
+                <img 
+                  src={formation.image} 
+                  alt={formation.title}
+                  className="absolute inset-0 w-full h-full object-cover opacity-35 group-hover:scale-105 transition-transform duration-700" 
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
 
-                {/* Course Syllabus section */}
-                <div className="space-y-2.5 pt-4 border-t border-white/5">
-                  <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest font-bold block">
-                    Programme d'apprentissage :
+                {/* Secure overlay badging */}
+                <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-950/85 border border-cyan-500/20 text-[8px] font-mono text-cyan-400 font-extrabold tracking-wider">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+                  <span>VIDÉO DE FORMATION D'ÉLITE</span>
+                </div>
+
+                <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded bg-black/85 border border-white/10 text-[8px] font-mono text-gray-400 uppercase tracking-widest">
+                  🔒 VERROUILLÉ
+                </div>
+
+                {/* Big Glassmorphic Play Button */}
+                <div className="relative z-10 flex flex-col items-center justify-center space-y-1.5">
+                  <div className="w-12 h-12 rounded-full bg-cyan-500/95 text-slate-950 flex items-center justify-center shadow-[0_0_25px_rgba(6,182,212,0.45)] group-hover/player:scale-110 group-hover:bg-cyan-400 transition-all duration-300">
+                    <Play className="w-5 h-5 ml-0.5 fill-slate-950 stroke-slate-950" />
+                  </div>
+                  <span className="text-[9px] font-mono tracking-[0.15em] text-cyan-400 font-black uppercase">
+                    LANCER LA VIDÉO
                   </span>
-                  <div className="grid grid-cols-1 gap-2">
-                    {formation.lessons.map((lesson, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 text-xs text-gray-300">
-                        <CheckCircle className="w-4 h-4 text-cyan-500/70 shrink-0 mt-0.5" />
-                        <span className="font-light">{lesson}</span>
-                      </div>
-                    ))}
+                </div>
+
+                {/* Subtitle status row at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/95 to-transparent flex items-center justify-between text-[8px] font-mono text-gray-500 border-t border-white/5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1 h-1 rounded-full bg-cyan-500 animate-pulse" />
+                    <span>FLUX PRIVÉ EN DIRECT</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-[7px] border border-cyan-500/20 px-1 rounded text-cyan-400 bg-cyan-950/30 font-extrabold uppercase">15 CHAPITRES CLÉS</span>
                   </div>
                 </div>
               </div>
 
-              {/* Bottom course footer */}
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between text-[10px] text-gray-500 font-mono">
-                <span className="uppercase tracking-wider text-[8px] text-cyan-500 font-bold flex items-center gap-1 bg-cyan-950/20 border border-cyan-500/10 px-2 py-0.5 rounded">
-                  <Eye className="w-3 h-3 text-cyan-400" /> ACCÈS RESTREINT AUX MEMBRES
+              {/* Brief details description */}
+              <p className="text-xs text-gray-400 leading-relaxed font-light">
+                {formation.description}
+              </p>
+
+              {/* Course Syllabus section replaced with 15-chapters details label */}
+              <div className="space-y-1.5 pt-3 border-t border-white/5">
+                <span className="text-[9px] font-mono text-gray-500 uppercase tracking-widest font-bold block">
+                  FORMAT DE L'ACADÉMIE :
                 </span>
-                <span className="text-gray-400 font-bold text-[9px] flex items-center gap-1">
-                  {formation.duration}
-                </span>
+                <div className="p-3 rounded-lg bg-cyan-950/20 border border-cyan-500/10 text-[11px] text-cyan-300 leading-relaxed font-light">
+                  📚 Ce module d'exception contient au total <strong className="text-white font-extrabold">15 chapitres d'élite</strong> de cours vidéo complets, de plans de route pragmatiques et de guides d'exécutions avancés accessibles dès le lancement officiel.
+                </div>
               </div>
+            </div>
+
+            {/* Bottom course footer */}
+            <div className="pt-3 border-t border-white/5 flex items-center justify-between text-[10px] text-gray-500 font-mono">
+              <span className="uppercase tracking-wider text-[8px] text-cyan-500/80 font-bold flex items-center gap-1">
+                <Eye className="w-3 h-3 text-cyan-400/80" /> MZ+ LEADER ACADEMY
+              </span>
+              <button className="px-2.5 py-1.5 rounded-lg bg-cyan-950/40 border border-cyan-500/20 text-[8px] font-mono text-cyan-400 font-bold hover:bg-cyan-500 hover:text-slate-950 hover:border-cyan-500 transition-all duration-300 flex items-center gap-1.5 shadow-[0_0_15px_rgba(6,182,212,0.05)]">
+                <Lock className="w-2.5 h-2.5" />
+                <span>DÉVERROUILLER</span>
+              </button>
             </div>
           </motion.div>
         ))}
       </div>
 
       {/* Discrete bottom reassurance note */}
-      <div className="text-center relative z-10 max-w-xl mx-auto py-6 border-t border-white/5 space-y-3">
+      <div className="text-center relative z-10 max-w-xl mx-auto py-5 border-t border-white/5 space-y-2">
         <div className="flex justify-center gap-2 text-cyan-400 text-xs font-mono font-bold">
           <Trophy className="w-4 h-4 text-cyan-400" />
           <span>MZ+ LEADER ACADEMY</span>
@@ -302,9 +304,9 @@ export default function AcademyView({ onBack, onJoinWaitlist }: AcademyViewProps
                 </div>
 
                 <div className="bg-slate-900/60 rounded-xl p-3 border border-white/5">
-                  <span className="text-[10px] font-mono text-gray-400 block mb-1 uppercase font-bold">Inclus dans la leçon :</span>
+                  <span className="text-[10px] font-mono text-gray-400 block mb-1 uppercase font-bold">Inclus dans ce module :</span>
                   <p className="text-xs text-gray-300 leading-normal flex items-center gap-1.5 font-light">
-                    <BookOpen className="w-3.5 h-3.5 text-cyan-400" /> {activeVideo.lessons.length} modules de cours d'élite + exercices d'application pratiques.
+                    <BookOpen className="w-3.5 h-3.5 text-cyan-400" /> 15 chapitres d'élite de formation vidéo + exercices d'application pratiques.
                   </p>
                 </div>
               </div>
@@ -317,7 +319,7 @@ export default function AcademyView({ onBack, onJoinWaitlist }: AcademyViewProps
                 }}
                 className="group w-full py-4 px-6 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-sans font-black tracking-wider text-xs shadow-lg hover:scale-[1.01] transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
               >
-                <span>🚀 REJOINDRE LA LISTE D'ATTENTE MZ+</span>
+                <span>{isLaunchModeActive() ? "🚀 REJOINDRE MZ+" : "🚀 REJOINDRE LA LISTE D'ATTENTE MZ+"}</span>
               </button>
             </motion.div>
           </div>

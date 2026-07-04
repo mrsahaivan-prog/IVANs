@@ -9,9 +9,10 @@ import { ArrowDown, Sparkles, Trophy } from 'lucide-react';
 interface HeroProps {
   onShowPreviewClick: () => void;
   onJoinWaitlistClick: () => void;
+  isLaunched?: boolean;
 }
 
-export default function Hero({ onShowPreviewClick, onJoinWaitlistClick }: HeroProps) {
+export default function Hero({ onShowPreviewClick, onJoinWaitlistClick, isLaunched = false }: HeroProps) {
   const itemVariants = {
     hidden: { opacity: 0, y: 25 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } }
@@ -53,7 +54,7 @@ export default function Hero({ onShowPreviewClick, onJoinWaitlistClick }: HeroPr
           className="flex items-center gap-2 bg-cyan-950/20 border border-cyan-500/20 rounded-full px-4 py-1.5 mb-6 text-[11px] md:text-xs font-mono text-cyan-400 font-bold tracking-wider"
         >
           <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-          <span>ÉCOSYSTÈME PRIVÉ MULTI-CANAUX</span>
+          <span>{isLaunched ? "LES INSCRIPTIONS SONT OUVERTES" : "ÉCOSYSTÈME PRIVÉ MULTI-CANAUX"}</span>
         </motion.div>
 
         {/* GRAND TITRE - High-End Typography */}
@@ -71,14 +72,21 @@ export default function Hero({ onShowPreviewClick, onJoinWaitlistClick }: HeroPr
         {/* MAIN CALL TO ACTION - Dual Premium Buttons */}
         <motion.div 
           variants={itemVariants}
-          className="flex flex-col sm:flex-row items-center gap-4 relative justify-center w-full max-w-md"
+          className="flex flex-col sm:flex-row items-center gap-4 relative justify-center w-full max-w-lg px-4"
         >
           <button
-            onClick={onShowPreviewClick}
-            className="w-full sm:w-auto group relative px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-400 via-cyan-300 to-blue-500 text-slate-950 font-sans font-black tracking-wide text-sm shadow-[0_0_25px_rgba(6,182,212,0.2)] transition-all duration-300 hover:from-cyan-300 hover:to-cyan-400 hover:shadow-[0_0_35px_rgba(6,182,212,0.35)] hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
+            onClick={onJoinWaitlistClick}
+            className="w-full sm:w-1/2 group relative px-6 py-4 rounded-xl bg-gradient-to-r from-cyan-400 via-cyan-300 to-blue-500 text-slate-950 font-sans font-black tracking-wide text-sm shadow-[0_0_25px_rgba(6,182,212,0.2)] transition-all duration-300 hover:from-cyan-300 hover:to-cyan-400 hover:shadow-[0_0_35px_rgba(6,182,212,0.35)] hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
           >
-            Voir l'aperçu
+            <span>{isLaunched ? "S'inscrire à MZ+" : "Rejoindre la liste d'attente"}</span>
             <ArrowDown className="w-4 h-4 text-slate-950 group-hover:translate-y-0.5 transition-transform duration-300" />
+          </button>
+
+          <button
+            onClick={onShowPreviewClick}
+            className="w-full sm:w-1/2 group relative px-6 py-4 rounded-xl border border-white/10 bg-slate-950/40 hover:bg-slate-900/60 hover:border-cyan-500/30 text-white font-sans font-bold tracking-wide text-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
+          >
+            <span>Voir l'aperçu</span>
           </button>
         </motion.div>
 

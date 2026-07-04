@@ -21,6 +21,7 @@ import {
   CheckCircle2,
   Mail
 } from 'lucide-react';
+import { isLaunchModeActive } from '../utils';
 
 interface BusinessViewProps {
   onBack: () => void;
@@ -431,7 +432,7 @@ export default function BusinessView({ onBack, onJoinWaitlist }: BusinessViewPro
                         onClick={onJoinWaitlist}
                         className="group w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-sans font-black tracking-wide text-xs shadow-lg hover:scale-[1.01] transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
                       >
-                        <span>🚀 Rejoindre la liste d'attente</span>
+                        <span>{isLaunchModeActive() ? "🚀 Rejoindre MZ+" : "🚀 Rejoindre la liste d'attente"}</span>
                       </button>
                     </div>
 
@@ -474,7 +475,7 @@ export default function BusinessView({ onBack, onJoinWaitlist }: BusinessViewPro
       {/* ------------------------------------------------------------- */}
       <div className="absolute bottom-8 inset-x-0 text-center z-10 opacity-30">
         <p className="text-[10px] font-mono tracking-widest text-gray-500 uppercase">
-          🔒 ACCÈS RESTREINT — LANCEMENT LE 4 JUILLET À 20H00 GMT+1
+          {isLaunchModeActive() ? "🔒 ACCÈS MEMBRE ACTIF — INSCRIPTIONS OUVERTES" : "🔒 ACCÈS RESTREINT — LANCEMENT LE 4 JUILLET À 20H00 GMT+1"}
         </p>
       </div>
 

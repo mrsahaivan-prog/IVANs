@@ -18,6 +18,7 @@ import {
   MapPin, 
   TrendingUp 
 } from 'lucide-react';
+import { isLaunchModeActive } from '../utils';
 
 interface CommunityViewProps {
   onBack: () => void;
@@ -218,7 +219,9 @@ export default function CommunityView({ onBack, onJoinWaitlist }: CommunityViewP
         {/* Footnote */}
         <div className="text-center mt-8 max-w-md mx-auto py-4">
           <p className="text-[11px] text-gray-500 font-sans tracking-wide leading-relaxed font-light">
-            ✨ Vos liens d'accès aux salons de discussion Telegram et Discord s'initialiseront une fois la liste d'attente rejointe.
+            {isLaunchModeActive() 
+              ? "✨ Vos liens d'accès aux salons de discussion Telegram et Discord s'initialiseront une fois votre inscription validée."
+              : "✨ Vos liens d'accès aux salons de discussion Telegram et Discord s'initialiseront une fois la liste d'attente rejointe."}
           </p>
         </div>
 
@@ -296,7 +299,7 @@ export default function CommunityView({ onBack, onJoinWaitlist }: CommunityViewP
                 }}
                 className="group w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-sans font-black tracking-wide shadow-lg hover:scale-[1.01] transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 text-xs"
               >
-                <span>🚀 Rejoindre la liste d'attente</span>
+                <span>{isLaunchModeActive() ? "🚀 Rejoindre MZ+" : "🚀 Rejoindre la liste d'attente"}</span>
               </button>
             </motion.div>
           </div>

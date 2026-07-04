@@ -24,9 +24,44 @@ export default function Countdown({ onJoinWaitlistClick }: CountdownProps) {
     isCompleted: false,
   });
 
+  const [adminClicks, setAdminClicks] = useState(0);
+  const [lastClickTime, setLastClickTime] = useState(0);
+
+  const handleAdminSecretClick = () => {
+    const now = Date.now();
+    if (now - lastClickTime < 2500) {
+      const nextClicks = adminClicks + 1;
+      setAdminClicks(nextClicks);
+      if (nextClicks >= 10) {
+        if (typeof (window as any).openMZAdmin === 'function') {
+          (window as any).openMZAdmin();
+        }
+        setAdminClicks(0);
+      }
+    } else {
+      setAdminClicks(1);
+    }
+    setLastClickTime(now);
+  };
+
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const difference = targetDate.getTime() - Date.now();
+      // Admin overrides
+      const isForced = localStorage.getItem('mz_admin_override_countdown') === 'true';
+      if (isForced) {
+        setTimeLeft({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+          isCompleted: true,
+        });
+        return;
+      }
+
+      const customTimeStr = localStorage.getItem('mz_custom_launch_time');
+      const targetTimeMs = customTimeStr ? parseInt(customTimeStr, 10) : targetDate.getTime();
+      const difference = targetTimeMs - Date.now();
       
       if (difference <= 0) {
         setTimeLeft({
@@ -75,8 +110,13 @@ export default function Countdown({ onJoinWaitlistClick }: CountdownProps) {
           </div>
           <div>
             <div className="flex flex-wrap items-center gap-2 justify-center md:justify-start">
-              <span className="text-xs font-mono tracking-widest text-cyan-400 font-extrabold">
+              <span className="text-xs font-mono tracking-widest text-cyan-400 font-extrabold flex items-center gap-1.5">
                 LANCEMENT OFFICIEL MZ+
+                <span 
+                  onClick={handleAdminSecretClick}
+                  className="w-2 h-2 rounded-full bg-cyan-500/80 hover:bg-cyan-400 border border-cyan-400/30 transition-all cursor-pointer inline-block animate-pulse shadow-[0_0_8px_rgba(6,182,212,0.4)]"
+                  title="Node Status"
+                />
               </span>
               <span className="px-2 py-0.5 rounded bg-red-950/80 border border-red-500/30 text-[10px] font-mono text-red-400 font-bold tracking-wider animate-pulse flex items-center gap-1">
                 <Users className="w-3 h-3" /> LIMITÉ À 150 PLACES
@@ -93,7 +133,9 @@ export default function Countdown({ onJoinWaitlistClick }: CountdownProps) {
           
           {/* Day */}
           <div className="flex flex-col items-center">
-            <div className="bg-slate-900 px-3.5 py-2 rounded-xl border border-cyan-500/20 flex items-center justify-center min-w-[56px] sm:min-w-[64px] shadow-[0_0_15px_rgba(6,182,212,0.05)]">
+            <div 
+              className="bg-slate-900 px-3.5 py-2 rounded-xl border border-cyan-500/20 flex items-center justify-center min-w-[56px] sm:min-w-[64px] shadow-[0_0_15px_rgba(6,182,212,0.05)] select-none"
+            >
               <span className="text-xl sm:text-2xl md:text-3xl font-mono font-black text-white tracking-tight">
                 {formatNum(timeLeft.days)}
               </span>
